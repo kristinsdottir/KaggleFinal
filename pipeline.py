@@ -20,7 +20,7 @@ class NLTKrequirements(luigi.Task):
 
 class TokenCounter(luigi.Task):
     def requires(self):
-        return NLTKrequirements()
+        return [GetKaggleData(),NLTKrequirements()]
 
     def run(self):
         os.system('python pipeline/sentence_to_tokens.py')
