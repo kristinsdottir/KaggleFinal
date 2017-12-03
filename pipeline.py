@@ -6,7 +6,7 @@ class TokenCounter(luigi.Task):
         os.system('python pipeline/sentence_to_tokens.py')
 
     def output(self):
-        return luigi.LocalTarget('data/tokens.json')
+        return luigi.LocalTarget('pipeline/data/tokens.json')
 
 class TokenVector(luigi.Task):
     def requires(self):
@@ -16,7 +16,7 @@ class TokenVector(luigi.Task):
         os.system('python pipeline/tokens_to_vec.py')
 
     def output(self):
-        return luigi.LocalTarget('data/tokens.csv')
+        return luigi.LocalTarget('pipeline/data/tokens.csv')
 
 if __name__ == '__main__':
-    TokenVector().run()
+    luigi.run(["--local-scheduler"], main_task_cls=TokenVector)
