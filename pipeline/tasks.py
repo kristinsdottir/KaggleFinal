@@ -12,11 +12,23 @@ class GetKaggleData(luigi.Task):
     def output(self):
         return luigi.LocalTarget('data/descriptions_train/0.txt')
 
+class NLTKtarget:
+    def exists(self):
+        files = os.listdir(nltk.data.find('corpora'))
+        try:
+            nltk.data.find('tokenizers/punkt')
+        except LookupError:
+            nltk.download('punkt')
+        return 'words' in files and 'stopwords' in files
+
 class NLTKrequirements(luigi.Task):
     def run(self):
         nltk.download('words')
         nltk.download('stopwords')
         nltk.download('punkt')
+
+    def output(self):
+        return NLTKtarget()
 
 class TokenCounter(luigi.Task):
     def requires(self):

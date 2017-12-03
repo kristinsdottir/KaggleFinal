@@ -5,3 +5,7 @@ numpy
 kaggle-cli
 sklearn
 pyenchant
+
+# testing requirements
+nose
+spec
