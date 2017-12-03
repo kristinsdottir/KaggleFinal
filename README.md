@@ -4,7 +4,7 @@ Please download and unzip the kaggle data into the /data directory
 
 Run ```python pipeline.py``` to generate tokens.csv - though it takes forever.
 Instead, ask James for tokens.csv, which is a token vector per image
-
+```
 KaggleFinal/
     data/* (the data we download from our kaggle competition)
     pipeline/
@@ -18,5 +18,5 @@ KaggleFinal/
     ├── sentence_cleaner.py
     └── test_sentence_cleaner.py
     Collaborative Filtering.ipynb
-
-    
+```
+ 
