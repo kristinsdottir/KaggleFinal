@@ -12,6 +12,8 @@ cwd = os.getcwd()
 sys.path.append(cwd)
 from cleaners.sentence_cleaner import SentenceCleaner
 
+features = dict()   
+
 def build_tokens(file_location):
     print("    Parsing ", file_location)
     fname = file_location.split('/')[-1]
@@ -19,30 +21,23 @@ def build_tokens(file_location):
     
     with open(file_location, 'r') as f:
         sentences = f.read()
-
+    
     features[file_num] = Counter(cleaner.clean_sentence(sentences))
-    
+    return file_num
 
-def fast_combine(x,y):
-    x2, y2 = x.align(y, axis=1)
-    return x2.append(y2)
-    
 if __name__=="__main__":
     import time;
     start = time.time()
     print("\nProgram Begin")
     print("=======================")
-    print("Estimated time: 45 min.")
+    print("Estimated time: 15 min. with 36 cores")
     cleaner = SentenceCleaner()
     rows = list()
-    description_files = glob('data/descriptions_train/*.txt')[:100]
-    
-    features = dict()
+    description_files = glob('data/descriptions_train/*.txt')
     
     with cfs.ThreadPoolExecutor() as executor:
-        executor.map(build_tokens, description_files)
+        futures = executor.map(build_tokens, description_files)
     
-    print(features)
     with open('data/tokens.json', 'w') as f:
         json.dump(features, f)
     
