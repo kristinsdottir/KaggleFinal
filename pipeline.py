@@ -1,7 +1,27 @@
 import luigi
 import os
+import nltk
+
+class GetKaggleData(luigi.Task):
+    def run(self):
+        username=input("What is your kaggle username: ")
+        password=input("What is your kaggle password: ")
+        os.system('kg download -u {username} -p {password} -c cs5785-fall-2017-final'.format(username=username, password=password))
+        os.system('mkdir data && mv data.zip data/ && cd data && unzip data.zip')
+        
+    def output(self):
+        return luigi.LocalTarget('data/descriptions_train/0.txt')
+
+class NLTKrequirements(luigi.Task):
+    def run(self):
+        nltk.download('words')
+        nltk.download('stopwords')
+        nltk.download('punkt')
 
 class TokenCounter(luigi.Task):
+    def requires(self):
+        return NLTKrequirements()
+
     def run(self):
         os.system('python pipeline/sentence_to_tokens.py')
 

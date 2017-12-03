@@ -1,0 +1,7 @@
+luigi
+nltk
+pandas
+numpy
+kaggle-cli
+sklearn
+pyenchant
