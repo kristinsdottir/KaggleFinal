@@ -22,4 +22,4 @@ for img_num, sentence in tokens.items():
         token_matrix[int(img_num)][columns.index(token)] = sentence[token]
 
 df = pd.DataFrame(token_matrix, columns=columns)
-df.to_csv('data/tokens.csv')
+df.to_csv('data/tokens_test.csv')
