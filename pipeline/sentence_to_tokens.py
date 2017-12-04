@@ -33,7 +33,7 @@ if __name__=="__main__":
     print("Estimated time: 15 min. with 36 cores")
     cleaner = SentenceCleaner()
     rows = list()
-    description_files = glob('data/descriptions_train/*.txt')
+    description_files = glob('data/descriptions_test.txt')
     
     with cfs.ThreadPoolExecutor() as executor:
         futures = executor.map(build_tokens, description_files)
